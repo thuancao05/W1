@@ -1,23 +1,25 @@
 package core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.*;
 
 
 //file nay se khoi tao Browser va dong Driver
 public class baseTest {
-    private ChromeDriver chormeDriver;
+    private WebDriver driver;
 
-    public ChromeDriver getChormeDriver(){
-        return chormeDriver;
+    public WebDriver getDriver(){
+        return driver;
     }
 
     @BeforeClass
     public void initDriver(){
-        WebDriverManager.chromedriver().setup();
-        chormeDriver = new ChromeDriver();
-        chormeDriver.navigate().to("https://demo-m2.bird.eu/admin");
+        WebDriverManager.edgedriver().setup();
+        driver = new EdgeDriver();
+        driver.navigate().to("https://demo-m2.bird.eu/admin");
         //return chormeDriver;
     }
 
@@ -28,7 +30,7 @@ public class baseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        chormeDriver.quit();
+        driver.quit();
     }
 
 }

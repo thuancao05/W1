@@ -4,8 +4,7 @@ import core.ExcelUtils;
 import core.baseTest;
 import functions.dashboard_function;
 import functions.login_function;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.dashboard_page;
@@ -14,16 +13,13 @@ import pages.login_page;
 import java.io.IOException;
 
 public class login_test extends baseTest {
-    private ChromeDriver chormeDriver;
+    private WebDriver driver;
     private ExcelUtils excel;
-
-    public login_page loginPage;
-    public dashboard_page dashBoardPage;
     public login_function loginFunction;
     public dashboard_function dashboardFunction;
     @BeforeClass
     public void setUp(){
-        chormeDriver = getChormeDriver();
+        driver = getDriver();
         excel = new ExcelUtils();
     }
 
@@ -31,7 +27,7 @@ public class login_test extends baseTest {
     @Test
     public void SignIn(){
 
-        loginFunction = new login_function(chormeDriver);
+        loginFunction = new login_function(driver);
 
         Object[][] dataFromExcel = excel.getTableArray("F:\\ThucTap\\W1\\src\\login.xlsx", "login_sheet", 0, 2 );
 //        comon_fun.printDataFrom(dataFromExcel); //check data read from excel
@@ -46,7 +42,7 @@ public class login_test extends baseTest {
             String testCase = (i+1) + "- username: '" + username + "'- password: '" +password + "'";
             try{
                 loginFunction.sigIn(username,password);
-                dashboardFunction = new dashboard_function(chormeDriver);
+                dashboardFunction = new dashboard_function(driver);
                 excel.writeAppendExcelFile(testCase, "Pass");
                 dashboardFunction.SignOut();
             }catch (Exception e){

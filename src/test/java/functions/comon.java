@@ -1,14 +1,13 @@
 package functions;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class comon {
-    ChromeDriver chromeDriver;
+    WebDriver driver;
 
-    public comon(ChromeDriver chromeDriver1){
-        this.chromeDriver = chromeDriver1;
+    public comon(WebDriver driver){
+        this.driver = driver;
     }
 
     public void printDataFromExcel(Object[][] data){
@@ -28,7 +27,7 @@ public class comon {
     }
 
     public String getTitlePage(){
-        return chromeDriver.getTitle();
+        return driver.getTitle();
     }
 
     public String getTitleElement(WebElement element){
@@ -41,6 +40,6 @@ public class comon {
         return getTitlePage().contains(titlePage);
     }
     public void refeshPage(){
-        chromeDriver.navigate().refresh();
+        driver.navigate().refresh();
     }
 }

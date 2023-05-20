@@ -1,32 +1,32 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class login_page {
-    private ChromeDriver chormeDriver;
+    private WebDriver driver;
     private By logoImg = By.xpath("//header/a[1]/img[1]");
     private By txtUserName = By.xpath("//select[@id='username']");
     private By txtPassWord = By.xpath("//input[@id='login']");
     private By btnSigIn = By.xpath("//span[contains(text(),'Sign in')]");
 
-    public login_page(ChromeDriver chormeDriver) {
-        this.chormeDriver = chormeDriver;
+    public login_page(WebDriver driver) {
+        this.driver = driver;
     }
     public WebElement LogoImg() {
-        return chormeDriver.findElement(logoImg);
+        return driver.findElement(logoImg);
     }
 
     public WebElement TxtUserName() {
-        return chormeDriver.findElement(txtUserName);
+        return driver.findElement(txtUserName);
     }
 
     public WebElement TxtPassWord() {
-        return chormeDriver.findElement(txtPassWord);
+        return driver.findElement(txtPassWord);
     }
 
     public WebElement BtnSigIn() {
-        return chormeDriver.findElement(btnSigIn);
+        return driver.findElement(btnSigIn);
     }
 }

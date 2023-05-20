@@ -1,27 +1,25 @@
 package functions;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import pages.dashboard_page;
 import pages.login_page;
 
 public class login_function {
-    private ChromeDriver chromeDriver;
+    private WebDriver driver;
     private login_page loginPage;
     private comon comonFun;
 
 
-    public login_function(ChromeDriver driver){
-        this.chromeDriver =driver;
+    public login_function(WebDriver driver){
+        this.driver =driver;
     }
 
     public boolean verifyLoginPage(){
-        loginPage = new login_page(chromeDriver);
-        comonFun = new comon(chromeDriver);
+        loginPage = new login_page(driver);
+        comonFun = new comon(driver);
         WebElement logo = loginPage.LogoImg();
         String actual = comonFun.getTitleElement(logo);
         String expected = "Magento Admin Panel";
@@ -48,6 +46,6 @@ public class login_function {
         selectUserName(username);
         inputPassword(password);
         clickSigInButton();
-        return  new dashboard_page(chromeDriver);
+        return  new dashboard_page(driver);
     }
 }

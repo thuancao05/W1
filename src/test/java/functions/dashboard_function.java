@@ -1,23 +1,21 @@
 package functions;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.dashboard_page;
-import pages.login_page;
 
 public class dashboard_function {
 
-    private ChromeDriver chromeDriver;
+    private WebDriver driver;
     private dashboard_page dashboardPage;
     private comon comonFun;
 
-    public dashboard_function(ChromeDriver driver){
-        this.chromeDriver =driver;
+    public dashboard_function(WebDriver driver){
+        this.driver =driver;
     }
 
     public String getSigInPageTitle(){
-        return chromeDriver.getTitle();
+        return driver.getTitle();
     }
 
     public boolean verifyLogoDashBoard(){
@@ -27,8 +25,8 @@ public class dashboard_function {
         return actual.equals(expected);
     }
     public boolean verifyLabelDashBoard(){
-        dashboardPage = new dashboard_page(chromeDriver);
-        comonFun = new comon(chromeDriver);
+        dashboardPage = new dashboard_page(driver);
+        comonFun = new comon(driver);
         String actual = comonFun.getText(dashboardPage.WarningLabel());
         String expected = "This is only a demo store. You can browse and place orders, but nothing will be processed.";
         return actual.equals(expected)  ;
