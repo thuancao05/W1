@@ -1,51 +1,59 @@
 package functions;
 
+import core.basePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pages.dashboard_page;
 import pages.login_page;
 
-public class login_function {
-    private WebDriver driver;
-    private login_page loginPage;
-    private comon comonFun;
+public class login_function extends basePage {
+    private login_page loginPage = new login_page();;
+    private comon_function comonFunction = new comon_function(driver);
+
 
 
     public login_function(WebDriver driver){
-        this.driver =driver;
+        super(driver);
     }
 
     public boolean verifyLoginPage(){
-        loginPage = new login_page(driver);
-        comonFun = new comon(driver);
-        WebElement logo = loginPage.LogoImg();
-        String actual = comonFun.getTitleElement(logo);
+        comonFunction.click(loginPage.logoImg);
+        String actual = comonFunction.getTitleElement(loginPage.logoImg);
         String expected = "Magento Admin Panel";
-        return  actual.equals(expected) && comonFun.verifyTitlePage("Magento Admin");
+        return  actual.equals(expected);
     }
 
     public void selectUserName(String username){
-        WebElement userNameTxtBox = loginPage.TxtUserName();
+        WebElement userNameTxtBox = wait.until(ExpectedConditions.visibilityOfElementLocated(loginPage.txtUserName));
+
         Select selectUsername = new Select(userNameTxtBox);
         selectUsername.selectByValue(username);
     }
     public void inputPassword(String pass){
-        WebElement PassWordTxtBox = loginPage.TxtPassWord();
-        PassWordTxtBox.clear();
-        PassWordTxtBox.sendKeys(pass);
+        comonFunction.senKeys(loginPage.txtPassWord, pass);
     }
     public void clickSigInButton(){
-        WebElement btnSigin = loginPage.BtnSigIn();
-        btnSigin.click();
+        comonFunction.click(loginPage.btnSigIn);
     }
+    public String getLoginErrorMessage() {
+
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(loginPage.errorMessages));
+        return element.getText();
+    }
+    public String getEmptyErrorMessage() {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(loginPage.emptyPassword));
+        return element.getText();
+    }
+
     public dashboard_page sigIn(String username, String password){
         Assert.assertTrue(verifyLoginPage(),"Verify Login Page Is Fail");
         if(verifyLoginPage()) System.out.println("Verified Login Page");
         selectUserName(username);
         inputPassword(password);
         clickSigInButton();
-        return  new dashboard_page(driver);
+        return  new dashboard_page();
     }
 }

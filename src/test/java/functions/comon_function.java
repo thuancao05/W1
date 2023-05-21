@@ -1,13 +1,16 @@
 package functions;
 
+import core.basePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class comon {
+public class comon_function extends basePage {
     WebDriver driver;
 
-    public comon(WebDriver driver){
-        this.driver = driver;
+    public comon_function(WebDriver driver){
+        super(driver);
     }
 
     public void printDataFromExcel(Object[][] data){
@@ -25,15 +28,26 @@ public class comon {
             System.out.println(e.getMessage());
         }
     }
+    public void click(By by){
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
+        element.click();
+    }
+    public void senKeys(By by, String value){
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        element.clear();
+        element.sendKeys(value);
+    }
 
     public String getTitlePage(){
         return driver.getTitle();
     }
 
-    public String getTitleElement(WebElement element){
+    public String getTitleElement(By by){
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return element.getAttribute("title");
     }
-    public String getText(WebElement element){
+    public String getText(By by){
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return element.getText();
     }
     public boolean verifyTitlePage(String titlePage){
