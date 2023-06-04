@@ -8,7 +8,7 @@ import static java.time.Duration.*;
 
 
 public class basePage {
-
+// sua moi ne
     protected WebDriver driver;
     protected WebDriverWait wait;
 
